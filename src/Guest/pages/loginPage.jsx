@@ -1,73 +1,85 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
 
 export default function loginPage() {
+
+  const initialValues= {
+    email: '',
+    password: '',
+  };
+
+  const onSubmit= values => {
+    alert(JSON.stringify(values, null, 2));
+  }
+  
+  const validate= (values) => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+    ) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (!values.password) {
+      errors.password = 'Required';
+    }
+  
+    return errors;
+  }
+
+  const formik = useFormik({initialValues, onSubmit, validate})
+
   return (
     <>
-      <div className="bg-slate-100 h-screen w-screen flex items-center justify-center">
-        <div className=" px-3 mx-auto mt-0 md:flex-0 shrink-0">
-          <div className="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-            <div className="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
-              <h5 className="text-3xl font-semibold">Login</h5>
-            </div>
+      <div className="bg-slate-500 h-screen w-screen flex items-center justify-center">
+       
+        <div
+          id="form-container"
+          className="bg-white p-10 rounded-lg shadow-2xl w-80 relative z-10 transform transition duration-500 ease-in-out"
+        >
+          <h2
+            id="form-title"
+            className="text-center text-3xl font-bold mb-10 text-gray-800"
+          >
+            Login
+          </h2>
+          <form onSubmit={formik.handleSubmit} className="space-y-5">
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              placeholder="qwertgh@gmail.com"
+              id="email"
+              name="email"
+              type="email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+            />
+            {formik.errors.email && formik.touched.email && <p>{formik.errors.email}</p>}
 
-            <div className="flex-auto p-6">
-              <form role="form text-left">
-                
-                <div className="mb-4">
-                  <input
-                    aria-describedby="email-addon"
-                    aria-label="Email"
-                    placeholder="Email"
-                    className="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                    type="email"
-                  />
-                </div>
-                <div className="mb-4">
-                  <input
-                    aria-describedby="password-addon"
-                    aria-label="Password"
-                    placeholder="Password"
-                    className="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                    type="password"
-                  />
-                </div>
-                <div className="min-h-6 pl-7 mb-0.5 block">
-                  <input
-                    defaultChecked=""
-                    defaultValue=""
-                    type="checkbox"
-                    className="w-5 h-5 ease-soft -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
-                    id="terms"
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700"
-                  >
-                    Remember me
-                   
-                  </label>
-                </div>
-                <div className="text-center">
-                  <button
-                    className="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white"
-                    type="button"
-                  >
-                    Log in
-                  </button>
-                </div>
-                <p className="mt-4 mb-0 leading-normal text-sm">
-                  Don't have an account?{" "}
-                  <Link
-                    className="font-bold text-slate-700"
-                    to="/signup"
-                  >
-                    Signup
-                  </Link>
-                </p>
-              </form>
-            </div>
-          </div>
+            <input
+              className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+              placeholder="Password"
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            {formik.errors.password && formik.touched.password && <p>{formik.errors.password}</p>}
+
+            <button className="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Login
+            </button>
+            <p className="mt-4 mb-0 text-sm flex justify-center">
+              Don't have an account?{" "}
+              <Link className="font-bold text-slate-700" to="/signup">
+                Signup
+              </Link>
+            </p>
+          </form>
         </div>
       </div>
     </>
