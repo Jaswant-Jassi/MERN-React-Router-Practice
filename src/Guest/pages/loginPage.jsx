@@ -39,7 +39,7 @@ export default function loginPage() {
        
         <div
           id="form-container"
-          className="bg-white p-10 rounded-lg shadow-2xl w-80 relative z-10 transform transition duration-500 ease-in-out"
+          className="bg-white p-10 rounded-lg shadow-2xl w-1/4 relative z-10 transform transition duration-500 ease-in-out"
         >
           <h2
             id="form-title"
@@ -57,7 +57,7 @@ export default function loginPage() {
               onChange={formik.handleChange}
               value={formik.values.email}
             />
-            {formik.errors.email && formik.touched.email && <p>{formik.errors.email}</p>}
+            {formik.errors.email && formik.touched.email && <p className="text-red-400">{formik.errors.email}</p>}
 
             <input
               className="w-full h-12 border border-gray-800 px-3 rounded-lg"
@@ -68,7 +68,7 @@ export default function loginPage() {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
-            {formik.errors.password && formik.touched.password && <p>{formik.errors.password}</p>}
+            {formik.errors.password && formik.touched.password && <p className="text-red-400">{formik.errors.password}</p>}
 
             <button className="w-full h-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Login

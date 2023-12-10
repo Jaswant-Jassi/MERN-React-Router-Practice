@@ -6,7 +6,7 @@ export default function Admin() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigation />} />
+        <Route path="/" element={<p>It's Admin Block</p>} />
         <Route path="*" element={<Navigate to={"/"} rplace="true" />} />
       </Routes>
     </>

@@ -30,21 +30,21 @@ export default function signupPage() {
 
     if (!values.password) {
       errors.password = 'Required';
-    } else if (values.password.length < 13) {
+    } else if (values.password.length > 13) {
       errors.password = '13 characters are required';
     }
   
     return errors;
   }
 
-  const formik = useFormik({initialValues, onSubmit, validate})
+  const formik = useFormik({initialValues, onSubmit, validate}) 
  
   return (
     <>
       <div className="bg-slate-400 h-screen w-screen flex items-center justify-center">
         <div
           id="form-container"
-          className="bg-white p-10 rounded-lg shadow-2xl w-80 transform transition duration-500 ease-in-out"
+          className="bg-white p-10 rounded-lg shadow-2xl w-1/4  transform transition duration-500 ease-in-out"
         >
           <h2
             id="form-title"
@@ -63,7 +63,7 @@ export default function signupPage() {
               onChange={formik.handleChange}
               value={formik.values.username}
             />
-            {formik.errors.username && formik.touched.username && <p>{formik.errors.username}</p>}
+            {formik.errors.username && formik.touched.username && <p className="text-red-400">{formik.errors.username}</p>}
             
             <input
               className="w-full h-12 border border-gray-800 px-3 rounded-lg"
@@ -74,7 +74,7 @@ export default function signupPage() {
               onChange={formik.handleChange}
               value={formik.values.email}
             />
-            {formik.errors.email && formik.touched.email && <p>{formik.errors.email}</p>}
+            {formik.errors.email && formik.touched.email && <p className="text-red-400">{formik.errors.email}</p>}
            
             <input
               className="w-full h-12 border border-gray-800 px-3 rounded-lg"
@@ -85,7 +85,7 @@ export default function signupPage() {
               onChange={formik.handleChange}
               value={formik.values.password}
             />
-            {formik.errors.password && formik.touched.password && <p>{formik.errors.password}</p>}
+            {formik.errors.password && formik.touched.password && <p className="text-red-400">{formik.errors.password}</p>}
 
             <div className="min-h-6 pl-7 mb-0.5 block">
               <input
@@ -99,8 +99,8 @@ export default function signupPage() {
                 htmlFor="terms"
                 className="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700"
               >
-                {" "}
-                I agree the{" "}
+                
+                I agree the {" "}
                 <Link className="font-bold text-slate-700">
                   Terms and Conditions
                 </Link>
